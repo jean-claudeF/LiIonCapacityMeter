@@ -21,4 +21,5 @@ The project uses a Raspi Pico and a constant current sink (1A) that is switched 
 
 The measured values of time, voltage, current and charge in As and mAh are stored in a file LiIon.dat, in tab separated CSV format.
 This can be read in Thonny, or via USB serial.
-After reset the LiIon.dat can be output to USB serial by pushing the STOP / READ button. 
+After reset the LiIon.dat can be output to USB serial by pushing the STOP / READ button and read in any serial terminal.
+
