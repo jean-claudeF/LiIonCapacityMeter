@@ -1,0 +1,530 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Raspi_Pico:Pico U4
+U 1 1 657F41DD
+P 4400 2800
+F 0 "U4" H 4400 4015 50  0000 C CNN
+F 1 "Pico" H 4400 3924 50  0000 C CNN
+F 2 "RPi_Pico:RPi_Pico_SMD_TH" V 4400 2800 50  0001 C CNN
+F 3 "" H 4400 2800 50  0001 C CNN
+	1    4400 2800
+	1    0    0    -1  
+$EndComp
+Text GLabel 5375 2250 2    50   Input ~ 0
++3V3
+Text GLabel 5350 1850 2    50   Input ~ 0
++5V
+$Comp
+L Switch:SW_Push SW1
+U 1 1 657F420F
+P 2675 4075
+F 0 "SW1" V 2629 4223 50  0000 L CNN
+F 1 "STOP" V 2720 4223 50  0000 L CNN
+F 2 "" H 2675 4275 50  0001 C CNN
+F 3 "~" H 2675 4275 50  0001 C CNN
+	1    2675 4075
+	0    1    1    0   
+$EndComp
+$Comp
+L Switch:SW_Push SW2
+U 1 1 657F4215
+P 3250 4075
+F 0 "SW2" V 3204 4223 50  0000 L CNN
+F 1 "START" V 3295 4223 50  0000 L CNN
+F 2 "" H 3250 4275 50  0001 C CNN
+F 3 "~" H 3250 4275 50  0001 C CNN
+	1    3250 4075
+	0    1    1    0   
+$EndComp
+Text Notes 3350 2825 0    50   ~ 0
+SDA
+Text Notes 3350 3050 0    50   ~ 0
+SCL
+$Comp
+L oled:SH1106 U2
+U 1 1 6586156B
+P 2325 2575
+F 0 "U2" H 1995 2671 50  0000 R CNN
+F 1 "SSD1306" H 1995 2580 50  0000 R CNN
+F 2 "" H 2325 2075 50  0001 C CNN
+F 3 "" H 2275 1675 50  0001 C CNN
+	1    2325 2575
+	1    0    0    -1  
+$EndComp
+Connection ~ 3250 4275
+Wire Wire Line
+	2675 4275 3250 4275
+$Comp
+L Switch:SW_Push SW3
+U 1 1 66A61BBA
+P 5350 4050
+F 0 "SW3" V 5304 4198 50  0000 L CNN
+F 1 "Reset" V 5395 4198 50  0000 L CNN
+F 2 "" H 5350 4250 50  0001 C CNN
+F 3 "~" H 5350 4250 50  0001 C CNN
+	1    5350 4050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2350 3550 2350 4275
+Wire Wire Line
+	2350 4275 2675 4275
+Wire Wire Line
+	2350 3550 3700 3550
+Connection ~ 2675 4275
+Wire Wire Line
+	3250 3875 3250 3750
+Wire Wire Line
+	3250 3750 3700 3750
+Wire Wire Line
+	3700 3650 2675 3650
+Wire Wire Line
+	2675 3650 2675 3875
+Wire Wire Line
+	5350 4275 5350 4250
+Wire Wire Line
+	5350 3850 5350 2850
+Wire Wire Line
+	5350 2850 5100 2850
+Text Notes 1600 4750 0    50   ~ 0
+STOP / READ\n(when pressed during measurement)\n\nTransmit measured data via USB serial\n(when pressed at the beginning)
+Text Notes 3200 4925 0    50   ~ 0
+START discharge\nwith constant current until threshold voltage is reached.\n\nValues are displayed on OLED,\ntransmitted via USB serial\nand stored in a file on the Pico\nthat can later be read by pushing the STOP / READ button.\n
+Wire Wire Line
+	5375 2250 5100 2250
+$Comp
+L Device:R R1
+U 1 1 66D3C709
+P 6025 1175
+F 0 "R1" V 5818 1175 50  0000 C CNN
+F 1 "10k" V 5909 1175 50  0000 C CNN
+F 2 "" V 5955 1175 50  0001 C CNN
+F 3 "~" H 6025 1175 50  0001 C CNN
+	1    6025 1175
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C C1
+U 1 1 66D3CFAB
+P 6375 1450
+F 0 "C1" H 6490 1496 50  0000 L CNN
+F 1 "0.1uF" H 6490 1405 50  0000 L CNN
+F 2 "" H 6413 1300 50  0001 C CNN
+F 3 "~" H 6375 1450 50  0001 C CNN
+	1    6375 1450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3700 2250 3375 2250
+Wire Wire Line
+	3375 2250 3375 1175
+Wire Wire Line
+	3375 1175 5875 1175
+$Comp
+L power:GNDD #PWR01
+U 1 1 66D3DD39
+P 6375 1725
+F 0 "#PWR01" H 6375 1475 50  0001 C CNN
+F 1 "GNDD" H 6379 1570 50  0001 C CNN
+F 2 "" H 6375 1725 50  0001 C CNN
+F 3 "" H 6375 1725 50  0001 C CNN
+	1    6375 1725
+	1    0    0    -1  
+$EndComp
+$Comp
+L Amplifier_Operational:LM358 U1
+U 1 1 66D3E60B
+P 7175 1275
+F 0 "U1" H 7350 1675 50  0000 C CNN
+F 1 "TLC272" H 7400 1575 50  0000 C CNN
+F 2 "" H 7175 1275 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2904-n.pdf" H 7175 1275 50  0001 C CNN
+	1    7175 1275
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6175 1175 6375 1175
+Wire Wire Line
+	6375 1300 6375 1175
+Connection ~ 6375 1175
+Wire Wire Line
+	6375 1175 6875 1175
+Wire Wire Line
+	6375 1600 6375 1725
+$Comp
+L Device:R R2
+U 1 1 66D43822
+P 7775 1275
+F 0 "R2" V 7568 1275 50  0000 C CNN
+F 1 "1k" V 7659 1275 50  0000 C CNN
+F 2 "" V 7705 1275 50  0001 C CNN
+F 3 "~" H 7775 1275 50  0001 C CNN
+	1    7775 1275
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C C2
+U 1 1 66D43D46
+P 7550 1475
+F 0 "C2" H 7350 1500 50  0000 L CNN
+F 1 "1n" H 7350 1400 50  0000 L CNN
+F 2 "" H 7588 1325 50  0001 C CNN
+F 3 "~" H 7550 1475 50  0001 C CNN
+	1    7550 1475
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R3
+U 1 1 66D44507
+P 7800 1675
+F 0 "R3" V 7593 1675 50  0000 C CNN
+F 1 "10k" V 7684 1675 50  0000 C CNN
+F 2 "" V 7730 1675 50  0001 C CNN
+F 3 "~" H 7800 1675 50  0001 C CNN
+	1    7800 1675
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7650 1675 7550 1675
+Wire Wire Line
+	6775 1675 6775 1375
+Wire Wire Line
+	6775 1375 6875 1375
+Wire Wire Line
+	7475 1275 7550 1275
+Wire Wire Line
+	7550 1325 7550 1275
+Connection ~ 7550 1275
+Wire Wire Line
+	7550 1275 7625 1275
+Wire Wire Line
+	7550 1625 7550 1675
+Connection ~ 7550 1675
+Wire Wire Line
+	7550 1675 6775 1675
+$Comp
+L Device:Q_NMOS_GDS Q1
+U 1 1 66D495D0
+P 8400 1275
+F 0 "Q1" H 8604 1321 50  0000 L CNN
+F 1 "IRLZ44N" H 8604 1230 50  0000 L CNN
+F 2 "" H 8600 1375 50  0001 C CNN
+F 3 "~" H 8400 1275 50  0001 C CNN
+	1    8400 1275
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7925 1275 8200 1275
+Wire Wire Line
+	7950 1675 8500 1675
+Wire Wire Line
+	8500 1675 8500 1475
+$Comp
+L Device:R R4
+U 1 1 66D4BC83
+P 8500 1900
+F 0 "R4" H 8570 1946 50  0000 L CNN
+F 1 "1R" H 8570 1855 50  0000 L CNN
+F 2 "" V 8430 1900 50  0001 C CNN
+F 3 "~" H 8500 1900 50  0001 C CNN
+	1    8500 1900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R6
+U 1 1 66D4C498
+P 9400 1775
+F 0 "R6" H 9470 1821 50  0000 L CNN
+F 1 "10k" H 9500 1725 50  0000 L CNN
+F 2 "" V 9330 1775 50  0001 C CNN
+F 3 "~" H 9400 1775 50  0001 C CNN
+	1    9400 1775
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Screw_Terminal_01x02 J3
+U 1 1 66D4CBBD
+P 10175 1250
+F 0 "J3" H 10125 1375 50  0000 L CNN
+F 1 " " H 10255 1151 50  0000 L CNN
+F 2 "" H 10175 1250 50  0001 C CNN
+F 3 "~" H 10175 1250 50  0001 C CNN
+	1    10175 1250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Battery_Cell BT1
+U 1 1 66D4D9F6
+P 10700 1350
+F 0 "BT1" H 10818 1446 50  0000 L CNN
+F 1 "Battery_Cell" H 10818 1355 50  0000 L CNN
+F 2 "" V 10700 1410 50  0001 C CNN
+F 3 "~" V 10700 1410 50  0001 C CNN
+	1    10700 1350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10700 1150 10700 1025
+Wire Wire Line
+	10700 1025 10350 1025
+Wire Wire Line
+	10350 1025 10350 1250
+Wire Wire Line
+	10350 1250 10250 1250
+Wire Wire Line
+	10700 1450 10700 1575
+Wire Wire Line
+	10350 1575 10350 1350
+Wire Wire Line
+	10350 1350 10250 1350
+Wire Wire Line
+	10350 1575 10700 1575
+Wire Wire Line
+	9975 1250 9975 900 
+Wire Wire Line
+	8500 1075 8500 900 
+$Comp
+L Device:R R5
+U 1 1 66D5241E
+P 9400 1400
+F 0 "R5" H 9470 1446 50  0000 L CNN
+F 1 "10k" H 9470 1355 50  0000 L CNN
+F 2 "" V 9330 1400 50  0001 C CNN
+F 3 "~" H 9400 1400 50  0001 C CNN
+	1    9400 1400
+	1    0    0    -1  
+$EndComp
+Connection ~ 9975 1250
+Wire Wire Line
+	9975 1350 9975 2100
+Wire Wire Line
+	8500 1750 8500 1675
+Connection ~ 8500 1675
+Wire Wire Line
+	8500 2100 8500 2050
+$Comp
+L power:GNDD #PWR02
+U 1 1 66D58F83
+P 9400 1925
+F 0 "#PWR02" H 9400 1675 50  0001 C CNN
+F 1 "GNDD" H 9404 1770 50  0001 C CNN
+F 2 "" H 9400 1925 50  0001 C CNN
+F 3 "" H 9400 1925 50  0001 C CNN
+	1    9400 1925
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8500 2100 9975 2100
+Wire Wire Line
+	9400 1250 9975 1250
+Wire Wire Line
+	9400 1550 9400 1575
+$Comp
+L power:GNDD #PWR03
+U 1 1 66D5FC3D
+P 9825 1400
+F 0 "#PWR03" H 9825 1150 50  0001 C CNN
+F 1 "GNDD" H 9829 1245 50  0001 C CNN
+F 2 "" H 9825 1400 50  0001 C CNN
+F 3 "" H 9825 1400 50  0001 C CNN
+	1    9825 1400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9825 1400 9825 1350
+Wire Wire Line
+	9825 1350 9975 1350
+Connection ~ 9975 1350
+Text Notes 9900 2700 0    50   ~ 0
+Important!\nKelvin connection (4 wires)\nto reduce voltage drop error\nThe connections must be \nas near as possible \nto the battery cell!\n
+Wire Wire Line
+	5100 2750 9150 2750
+Wire Wire Line
+	9150 2750 9150 1575
+Wire Wire Line
+	9150 1575 9400 1575
+Connection ~ 9400 1575
+Wire Wire Line
+	9400 1575 9400 1625
+Wire Wire Line
+	5100 2650 6775 2650
+Wire Wire Line
+	6775 2650 6775 1675
+Connection ~ 6775 1675
+Text Notes 8350 2275 0    50   ~ 0
+1 Ohm / 5W
+Text Notes 8250 825  0    50   ~ 0
+Q1 on heat sink
+Wire Wire Line
+	3700 2850 2975 2850
+Wire Wire Line
+	2725 2850 2725 2675
+Wire Wire Line
+	3700 2950 3100 2950
+Wire Wire Line
+	2800 2950 2800 2575
+Wire Wire Line
+	2800 2575 2725 2575
+Text GLabel 2550 1925 2    50   Input ~ 0
++3V3
+Wire Wire Line
+	2325 2000 2325 2075
+$Comp
+L Amplifier_Operational:LM358 U3
+U 3 1 66D6A0E2
+P 7175 1275
+F 0 "U3" H 7300 1475 50  0000 L CNN
+F 1 " " H 7133 1230 50  0000 L CNN
+F 2 "" H 7175 1275 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lm2904-n.pdf" H 7175 1275 50  0001 C CNN
+	3    7175 1275
+	1    0    0    -1  
+$EndComp
+Text GLabel 6950 775  0    50   Input ~ 0
++5V
+Wire Wire Line
+	6950 775  7075 775 
+Wire Wire Line
+	7075 775  7075 975 
+$Comp
+L power:GNDD #PWR05
+U 1 1 66D6D779
+P 7075 1725
+F 0 "#PWR05" H 7075 1475 50  0001 C CNN
+F 1 "GNDD" H 7079 1570 50  0001 C CNN
+F 2 "" H 7075 1725 50  0001 C CNN
+F 3 "" H 7075 1725 50  0001 C CNN
+	1    7075 1725
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7075 1575 7075 1725
+$Comp
+L Device:R R7
+U 1 1 66D5F408
+P 2975 2575
+F 0 "R7" H 2800 2725 50  0000 L CNN
+F 1 "1k5" H 2775 2625 50  0000 L CNN
+F 2 "" V 2905 2575 50  0001 C CNN
+F 3 "~" H 2975 2575 50  0001 C CNN
+	1    2975 2575
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R8
+U 1 1 66D5F675
+P 3100 2575
+F 0 "R8" H 3170 2621 50  0000 L CNN
+F 1 "1k5" H 3170 2530 50  0000 L CNN
+F 2 "" V 3030 2575 50  0001 C CNN
+F 3 "~" H 3100 2575 50  0001 C CNN
+	1    3100 2575
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2975 2725 2975 2850
+Connection ~ 2975 2850
+Wire Wire Line
+	2975 2850 2725 2850
+Wire Wire Line
+	3100 2725 3100 2950
+Connection ~ 3100 2950
+Wire Wire Line
+	3100 2950 2800 2950
+Wire Wire Line
+	3100 2425 3100 2300
+Wire Wire Line
+	3100 2300 2975 2300
+Wire Wire Line
+	2975 2300 2975 2425
+Wire Wire Line
+	2975 2000 2975 2300
+Wire Wire Line
+	2325 2000 2975 2000
+Connection ~ 2975 2300
+Wire Wire Line
+	2550 1925 2325 1925
+Wire Wire Line
+	2325 1925 2325 2000
+Connection ~ 2325 2000
+Wire Wire Line
+	5350 1850 5100 1850
+Wire Wire Line
+	3700 3050 2325 3050
+Wire Wire Line
+	2325 3050 2325 2975
+Wire Wire Line
+	3250 4275 5350 4275
+$Comp
+L power:GNDD #PWR04
+U 1 1 66D725EC
+P 5700 2950
+F 0 "#PWR04" H 5700 2700 50  0001 C CNN
+F 1 "GNDD" H 5704 2795 50  0001 C CNN
+F 2 "" H 5700 2950 50  0001 C CNN
+F 3 "" H 5700 2950 50  0001 C CNN
+	1    5700 2950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5700 2950 5700 2550
+Wire Wire Line
+	5700 2550 5100 2550
+$Comp
+L Device:D D1
+U 1 1 66D70300
+P 9175 900
+F 0 "D1" H 9175 1116 50  0000 C CNN
+F 1 "BY560" H 9175 1025 50  0000 C CNN
+F 2 "" H 9175 900 50  0001 C CNN
+F 3 "~" H 9175 900 50  0001 C CNN
+	1    9175 900 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8500 900  9025 900 
+Wire Wire Line
+	9325 900  9975 900 
+$Comp
+L Device:D D2
+U 1 1 66D74C4B
+P 9725 1775
+F 0 "D2" V 9679 1854 50  0000 L CNN
+F 1 "1N4148" V 9825 2100 50  0000 L CNN
+F 2 "" H 9725 1775 50  0001 C CNN
+F 3 "~" H 9725 1775 50  0001 C CNN
+	1    9725 1775
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9400 1575 9725 1575
+Wire Wire Line
+	9725 1575 9725 1625
+$Comp
+L power:GNDD #PWR06
+U 1 1 66D776D9
+P 9725 1925
+F 0 "#PWR06" H 9725 1675 50  0001 C CNN
+F 1 "GNDD" H 9729 1770 50  0001 C CNN
+F 2 "" H 9725 1925 50  0001 C CNN
+F 3 "" H 9725 1925 50  0001 C CNN
+	1    9725 1925
+	1    0    0    -1  
+$EndComp
+Text Notes 9375 675  0    50   ~ 0
+D1, D2: Reverse polarity protection
+$EndSCHEMATC
