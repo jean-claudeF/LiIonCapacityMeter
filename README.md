@@ -11,4 +11,14 @@ I use a Kelvin connection (4 wire connection) to be sure that I measure the batt
 
 The project uses a Raspi Pico and a constant current sink (1A) that is switched off at a threshold voltage (3V).
 
+## Usage
+- Upon start, the cell voltage is displayed.
+- By pushing the start button (bottom right) the discharge is started
+- When the stop button (bottom left) is pushed or
+- when the threshold voltage is reached, the discharge is stopped.
+- The discharge in mAh is displayed
+- A new measuring cycle can be started with the reset button (top)
 
+The measured values of time, voltage, current and charge in As and mAh are stored in a file LiIon.dat, in tab separated CSV format.
+This can be read in Thonny, or via USB serial.
+After reset the LiIon.dat can be output to USB serial by pushing the STOP / READ button. 
