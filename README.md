@@ -1,7 +1,7 @@
 # LiIon Capacity Meter
 Measure the remaining capacity of recycled 18650 cells
 
-![Picture](measure_liion.png)
+![Picture](measure_liion_01.png)
 
 I have collected a lot of 18650 cells that I want to use for new projects.
 To do this, measuring the remaining capacity is essential.
